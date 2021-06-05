@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ShOut</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+
+  </head>
+  <body >
+    <div class="card carding" >
+      <h1 class="card-title heading" ><i>ShOut</i></h1>
+    <ul id="messages" style="height:100%"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><button class="btn btn-primary rounded-circle"><b>></b></button>
+    </form>
+
+  </div>
+  </body>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+
+    var messages = document.getElementById('messages');
+    var form = document.getElementById('form');
+    var input = document.getElementById('input');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (input.value) {
+
+        var user="<%= user %>";
+        socket.emit('chat message', user+" : "+input.value);
+        var s=document.createElement('span');
+        s.setAttribute('id','span-1');
+        var item = document.createElement('li');
+        item.setAttribute('id','li-1');
+        s.textContent = input.value;
+        item.appendChild(s);
+        messages.appendChild(item);
+        let objDiv = document.getElementById("messages");
+        objDiv.scrollTop = objDiv.scrollHeight;
+        input.value = '';
+      }
+    });
+
+    socket.on('chat message', function(msg) {
+      var s=document.createElement('span');
+      s.setAttribute('id','span-2');
+      var item = document.createElement('li');
+      s.textContent = msg;
+      item.appendChild(s);
+      messages.appendChild(item);
+      let objDiv = document.getElementById("messages");
+      objDiv.scrollTop = objDiv.scrollHeight;
+    });
+  </script>
+</html>
