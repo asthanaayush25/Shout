@@ -8,8 +8,14 @@
   </head>
   <body >
     <div class="card carding" >
-      <h1 class="card-title heading" ><i>ShOut</i></h1>
-    <ul id="messages" style="height:100%"></ul>
+      <h1 class="card-title heading" ><i>ShOut</i>
+
+      </h1>
+    <ul id="messages" style="height:100%">
+      <% msgarray.forEach((msg) => { %>
+        <li><span id="span-2"><%= msg %></span></li>
+          <%  })%>
+    </ul>
     <form id="form" action="">
       <input id="input" autocomplete="off" /><button class="btn btn-primary rounded-circle"><b>></b></button>
     </form>
@@ -24,6 +30,7 @@
     var messages = document.getElementById('messages');
     var form = document.getElementById('form');
     var input = document.getElementById('input');
+
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
