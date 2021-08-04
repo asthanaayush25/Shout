@@ -9,8 +9,10 @@
   <body >
     <div class="card carding" >
       <h1 class="card-title heading" ><i>ShOut</i>
-
+        <img src="download.png" class="buttond" onclick="chatdownload()" alt="" width="5%" height="60%">
+        download chat
       </h1>
+      
     <ul id="messages" style="height:100%">
       <% msgarray.forEach((msg) => { %>
         <li><span id="span-2"><%= msg %></span></li>
@@ -21,10 +23,18 @@
     </form>
 
   </div>
+  <div id="mydiv" data-test=<%= msgarray %>></div>
+
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/downloadjs@1.4.7/download.js" ></script>
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
+  var array =["<%= msgarray %>"];
+  function chatdownload(){
+
+  download(array.join('\n'),"chat.txt","text/plain");
+  }
     var socket = io();
 
     var messages = document.getElementById('messages');
@@ -38,6 +48,7 @@
 
         var user="<%= user %>";
         socket.emit('chat message', user+" : "+input.value);
+        array.push(user+" : "+input.value);
         var s=document.createElement('span');
         s.setAttribute('id','span-1');
         var item = document.createElement('li');

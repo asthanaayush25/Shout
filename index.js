@@ -19,7 +19,7 @@ app.post('/three',(req,res)=>{
     user : user,
     msgarray : msgarray
   });
-  console.log(msgarray);
+  
 });
 
 app.post('/one',(req,res)=>{
